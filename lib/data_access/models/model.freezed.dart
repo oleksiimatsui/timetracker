@@ -411,7 +411,6 @@ PastTDModel _$PastTDModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PastTDModel {
-  int get id => throw _privateConstructorUsedError;
   DateTime get startTime => throw _privateConstructorUsedError;
   DateTime get endTime => throw _privateConstructorUsedError;
   int get activityId => throw _privateConstructorUsedError;
@@ -428,7 +427,7 @@ abstract class $PastTDModelCopyWith<$Res> {
           PastTDModel value, $Res Function(PastTDModel) then) =
       _$PastTDModelCopyWithImpl<$Res, PastTDModel>;
   @useResult
-  $Res call({int id, DateTime startTime, DateTime endTime, int activityId});
+  $Res call({DateTime startTime, DateTime endTime, int activityId});
 }
 
 /// @nodoc
@@ -444,16 +443,11 @@ class _$PastTDModelCopyWithImpl<$Res, $Val extends PastTDModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? startTime = null,
     Object? endTime = null,
     Object? activityId = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
       startTime: null == startTime
           ? _value.startTime
           : startTime // ignore: cast_nullable_to_non_nullable
@@ -478,7 +472,7 @@ abstract class _$$PastTDModelImplCopyWith<$Res>
       __$$PastTDModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, DateTime startTime, DateTime endTime, int activityId});
+  $Res call({DateTime startTime, DateTime endTime, int activityId});
 }
 
 /// @nodoc
@@ -492,16 +486,11 @@ class __$$PastTDModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? startTime = null,
     Object? endTime = null,
     Object? activityId = null,
   }) {
     return _then(_$PastTDModelImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
       startTime: null == startTime
           ? _value.startTime
           : startTime // ignore: cast_nullable_to_non_nullable
@@ -522,16 +511,13 @@ class __$$PastTDModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PastTDModelImpl implements _PastTDModel {
   _$PastTDModelImpl(
-      {required this.id,
-      required this.startTime,
+      {required this.startTime,
       required this.endTime,
       required this.activityId});
 
   factory _$PastTDModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$PastTDModelImplFromJson(json);
 
-  @override
-  final int id;
   @override
   final DateTime startTime;
   @override
@@ -541,7 +527,7 @@ class _$PastTDModelImpl implements _PastTDModel {
 
   @override
   String toString() {
-    return 'PastTDModel(id: $id, startTime: $startTime, endTime: $endTime, activityId: $activityId)';
+    return 'PastTDModel(startTime: $startTime, endTime: $endTime, activityId: $activityId)';
   }
 
   @override
@@ -549,7 +535,6 @@ class _$PastTDModelImpl implements _PastTDModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PastTDModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.startTime, startTime) ||
                 other.startTime == startTime) &&
             (identical(other.endTime, endTime) || other.endTime == endTime) &&
@@ -559,8 +544,7 @@ class _$PastTDModelImpl implements _PastTDModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, startTime, endTime, activityId);
+  int get hashCode => Object.hash(runtimeType, startTime, endTime, activityId);
 
   @JsonKey(ignore: true)
   @override
@@ -578,16 +562,13 @@ class _$PastTDModelImpl implements _PastTDModel {
 
 abstract class _PastTDModel implements PastTDModel {
   factory _PastTDModel(
-      {required final int id,
-      required final DateTime startTime,
+      {required final DateTime startTime,
       required final DateTime endTime,
       required final int activityId}) = _$PastTDModelImpl;
 
   factory _PastTDModel.fromJson(Map<String, dynamic> json) =
       _$PastTDModelImpl.fromJson;
 
-  @override
-  int get id;
   @override
   DateTime get startTime;
   @override

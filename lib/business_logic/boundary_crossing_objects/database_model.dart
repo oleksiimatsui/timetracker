@@ -10,8 +10,8 @@ abstract class ActivityDBInterface {
 }
 
 abstract class HistoryDBInterface {
-  Future<List<HistoryDBModel>> getHistory();
-  Future addHistory(HistoryDBModel model);
+  Future<List<HistoryItemDBModel>> getHistory();
+  Future addHistory(List<HistoryItemDBModel> model);
 }
 
 abstract class StopwatchDBInterface {
@@ -54,8 +54,8 @@ class StopwatchDBModel {
   }
 }
 
-class HistoryDBModel {
-  HistoryDBModel(this.date, this.duration, this.activityId);
+class HistoryItemDBModel {
+  HistoryItemDBModel(this.date, this.duration, this.activityId);
   DateTime date;
   Duration duration;
   int activityId;

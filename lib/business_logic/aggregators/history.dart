@@ -1,14 +1,13 @@
-
+import 'package:timetracker/business_logic/boundary_crossing_objects/database_model.dart';
 import '../../helpers/date_helpers.dart';
 import '../../helpers/store.dart';
 import '../entities/activity.dart';
 import '../entities/tracking_data.dart';
-import 'timetracking_repository.dart';
 import '../boundary_crossing_objects/response_model.dart';
 
 
 class History{
-  TimetrackingRepository db;
+  HistoryDBInterface db;
   History(this.db);
   List<PastTrackingData> _history = [];
   final StreamContainer _historyUpdates = StreamContainer();
@@ -23,8 +22,9 @@ class History{
               .where((element) => element.id == x.activityId)
               .firstOrNull);
     }).toList();
+    _historyUpdates.emit();
   }
-  Future<Map<DateTime, List<HistoryItemData>>> getHistory() async {
+  Map<DateTime, List<HistoryItemData>> getHistory() {
     Map<DateTime, List<HistoryItemData>> res = <DateTime, List<HistoryItemData>>{};
     for(final hist in _history){
       final histDay = dayStart(hist.startTime);

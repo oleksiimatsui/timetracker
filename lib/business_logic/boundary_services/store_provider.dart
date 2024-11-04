@@ -3,7 +3,6 @@ import '../aggregators/activities.dart';
 import '../aggregators/history.dart';
 import '../aggregators/mediator.dart';
 import '../aggregators/stopwatches.dart';
-import '../aggregators/timetracking_repository.dart';
 import '../boundary_crossing_objects/database_model.dart';
 import 'activities_store.dart';
 import 'app_theme.dart';
@@ -17,22 +16,17 @@ class StoreProvider{
   static late ManagersMediator _m;
 
   static createStores(StopwatchDBInterface stopwatchesDB, HistoryDBInterface historyDB, ActivityDBInterface activitiesDB){
-    TimetrackingRepository timetrackingRepository = TimetrackingRepository(stopwatchesDB, historyDB);
-    Stopwatches stopwatchesManager = Stopwatches(timetrackingRepository);
-    Activities activitiesManager = Activities(activitiesDB, timetrackingRepository);
-    History historyManager = History(timetrackingRepository);
-    _m = ManagersMediator(activitiesManager,historyManager,stopwatchesManager);
-    activitiesState = ActivitiesStore(activitiesManager);
-    stopwatchesState = StopwatchesStore(stopwatchesManager);
-    historyState = HistoryStore(historyManager);
+    _m = ManagersMediator(stopwatchesDB,historyDB,activitiesDB);
+    activitiesState = ActivitiesStore(_m.activitiesManager);
+    stopwatchesState = StopwatchesStore(_m.stopwatchesManager);
+    historyState = HistoryStore(_m.historyManager);
     themeState = ThemeStore();
-
     activitiesState.activitiesStream.listen((event) {
       stopwatchesState.load(activitiesState.activities);
     });
   }
 
   static load() async{
-    await activitiesState.load();
+    await _m.load();
   }
 }

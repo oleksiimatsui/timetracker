@@ -36,7 +36,7 @@ void main() async {
   });
   test('save history', () async {
     await historyRepository.clear();
-    await historyRepository.addHistory(HistoryDBModel(DateTime.now().subtract(Duration(days: 4)), Duration(hours: 4), 1));
+    await historyRepository.addHistory([HistoryItemDBModel(DateTime.now().subtract(Duration(days: 4)), Duration(hours: 4), 1)]);
     var hist = await historyRepository.getHistory();
     assert(hist.length == 1);
   });

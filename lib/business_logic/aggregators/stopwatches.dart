@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:timetracker/business_logic/aggregators/timetracking_repository.dart';
+import 'package:timetracker/business_logic/boundary_crossing_objects/database_model.dart';
 import '../../helpers/store.dart';
 import '../entities/activity.dart';
 
@@ -7,8 +7,8 @@ import '../entities/activity.dart';
 class Stopwatches{
   Activity? _runningActivity;
   List<Activity> _activities = [];
-  final TimetrackingRepository _timetrackingRepository;
-  Stopwatches(this._timetrackingRepository);
+  final StopwatchDBInterface _db;
+  Stopwatches(this._db);
   final StreamContainer _runningActivityUpdates = StreamContainer();
   Stream get runningActivityStream => _runningActivityUpdates.stream;
   int? _lastId;
@@ -19,10 +19,13 @@ class Stopwatches{
   int? getRunningActivityId(){
     return _runningActivity?.id;
   }
+  getStoppedActivityId() {
+    return _lastId;
+  }
   startActivity(int activityId) async {
     _runningActivity = _activities.where((x) => x.id == activityId).firstOrNull;
     _runningActivity!.start();
-    await _timetrackingRepository.updateStopwatch(_runningActivity!.activeTrackingData!);
+    await _db.updateStopwatch(StopwatchDBModel.fromEntity(_runningActivity!.activeTrackingData!));
     _runningActivityUpdates.emit();
   }
   stopActivity() async {
@@ -30,12 +33,12 @@ class Stopwatches{
     _lastId = activity.id;
     activity.stop();
     _runningActivity = null;
-    await _timetrackingRepository.updateStopwatch(activity.activeTrackingData!);
+    await _db.updateStopwatch(StopwatchDBModel.fromEntity(activity.activeTrackingData!));
     _runningActivityUpdates.emit();
   }
   updateActivities(List<Activity> activities) async {
     _activities = activities;
-    final stopwatches = await _timetrackingRepository.getStopwatches();
+    final stopwatches = await _db.getStopwatches();
     final running = stopwatches.where((element) => element.isRunning == true).firstOrNull;
     if(running != null){
       final activity = activities.where((element) => element.id == running.id).firstOrNull;
@@ -43,7 +46,5 @@ class Stopwatches{
     }
   }
 
-  getStoppedActivityId() {
-    return _lastId;
-  }
+
 }

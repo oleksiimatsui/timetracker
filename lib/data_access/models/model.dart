@@ -31,8 +31,7 @@ class ActiveTDModel with _$ActiveTDModel {
 @freezed
 class PastTDModel with _$PastTDModel {
   factory PastTDModel(
-      {required int id,
-      required DateTime startTime,
+      {required DateTime startTime,
       required DateTime endTime,
       required int activityId}) = _PastTDModel;
 

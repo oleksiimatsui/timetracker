@@ -7,5 +7,5 @@ DateTime dayStart(DateTime dateTime) {
 }
 
 DateTime nextDayStart(DateTime dateTime) {
-  return dayStart(dateTime.add(Duration(days: 1)));
+  return DateTime(dateTime.year, dateTime.month, dateTime.day+1);
 }
