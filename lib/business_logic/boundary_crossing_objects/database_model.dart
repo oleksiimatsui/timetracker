@@ -2,34 +2,34 @@
 import '../entities/activity.dart';
 import '../entities/tracking_data.dart';
 
-abstract class ActivityDBInterface {
-  Future<List<ActivityDBModel>> getActivities();
-  Future addActivity(ActivityDBModel model);
+abstract class ActivityDSInterface {
+  Future<List<ActivityStorageModel>> getActivities();
+  Future addActivity(ActivityStorageModel model);
   Future deleteActivity(int id);
-  Future updateActivity(ActivityDBModel model);
+  Future updateActivity(ActivityStorageModel model);
 }
 
-abstract class HistoryDBInterface {
-  Future<List<HistoryItemDBModel>> getHistory();
-  Future addHistory(List<HistoryItemDBModel> model);
+abstract class HistoryDSInterface {
+  Future<List<HistoryItemStorageModel>> getHistory();
+  Future addHistory(List<HistoryItemStorageModel> model);
 }
 
-abstract class StopwatchDBInterface {
-  Future<List<StopwatchDBModel>> getStopwatches();
-  Future updateStopwatch(StopwatchDBModel model);
+abstract class StopwatchDSInterface {
+  Future<List<StopwatchStorageModel>> getStopwatches();
+  Future updateStopwatch(StopwatchStorageModel model);
 }
 
 
-class ActivityDBModel {
-  ActivityDBModel(this.id, this.name, this.plannedDuration);
+class ActivityStorageModel {
+  ActivityStorageModel(this.id, this.name, this.plannedDuration);
 
   String? name;
   Duration? plannedDuration;
   int? id;
-  StopwatchDBModel? stopwatch;
+  StopwatchStorageModel? stopwatch;
 
-  factory ActivityDBModel.fromEntity(Activity activity) {
-    return ActivityDBModel(
+  factory ActivityStorageModel.fromEntity(Activity activity) {
+    return ActivityStorageModel(
       activity.id,
       activity.name,
       activity.plannedDuration,
@@ -37,8 +37,8 @@ class ActivityDBModel {
   }
 }
 
-class StopwatchDBModel {
-  StopwatchDBModel(
+class StopwatchStorageModel {
+  StopwatchStorageModel(
       this.id, this.duration, this.isRunning, this.lastChangeTime);
 
   int id;
@@ -46,16 +46,16 @@ class StopwatchDBModel {
   bool isRunning;
   DateTime lastChangeTime;
 
-  factory StopwatchDBModel.fromEntity(
+  factory StopwatchStorageModel.fromEntity(
       ActiveTrackingData entity) {
-    return StopwatchDBModel(
+    return StopwatchStorageModel(
         entity.activity!.id!,
         entity.duration, entity.isRunning, entity.lastChangeTime);
   }
 }
 
-class HistoryItemDBModel {
-  HistoryItemDBModel(this.date, this.duration, this.activityId);
+class HistoryItemStorageModel {
+  HistoryItemStorageModel(this.date, this.duration, this.activityId);
   DateTime date;
   Duration duration;
   int activityId;

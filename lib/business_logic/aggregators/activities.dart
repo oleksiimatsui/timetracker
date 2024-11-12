@@ -5,8 +5,8 @@ import '../entities/activity.dart';
 import '../entities/tracking_data.dart';
 
 class Activities {
-  final ActivityDBInterface _activitiesDatabase;
-  final StopwatchDBInterface _stopwatchesDatabase;
+  final ActivityDSInterface _activitiesDatabase;
+  final StopwatchDSInterface _stopwatchesDatabase;
 
   Activities(this._activitiesDatabase, this._stopwatchesDatabase);
 
@@ -27,7 +27,7 @@ class Activities {
   load() async {
     var activitiesData = await _activitiesDatabase.getActivities();
     final stopwatches = await _stopwatchesDatabase.getStopwatches();
-    _activities = activitiesData.map<Activity>((ActivityDBModel x) {
+    _activities = activitiesData.map<Activity>((ActivityStorageModel x) {
       final s = stopwatches.where((element) => element.id == x.id).firstOrNull;
       StopwatchData? data = s != null
           ? StopwatchData(
@@ -43,7 +43,7 @@ class Activities {
 
   addActivity(String name) async {
     Activity activity = Activity(null, name, null, null);
-    await _activitiesDatabase.addActivity(ActivityDBModel.fromEntity(activity));
+    await _activitiesDatabase.addActivity(ActivityStorageModel.fromEntity(activity));
     await load();
   }
 
@@ -57,7 +57,7 @@ class Activities {
     final ActiveTrackingData? stopwatch = activity.activeTrackingData;
     if (stopwatch != null) {
       await _stopwatchesDatabase
-          .updateStopwatch(StopwatchDBModel.fromEntity(stopwatch));
+          .updateStopwatch(StopwatchStorageModel.fromEntity(stopwatch));
     }
     await load();
   }
@@ -69,7 +69,7 @@ class Activities {
       throw ("No activity with such id");
     }
     activity.name = value;
-    await _activitiesDatabase.updateActivity(ActivityDBModel.fromEntity(activity));
+    await _activitiesDatabase.updateActivity(ActivityStorageModel.fromEntity(activity));
     await load();
   }
 }

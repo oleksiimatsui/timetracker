@@ -3,18 +3,18 @@ import '../business_logic/boundary_crossing_objects/database_model.dart';
 import './models/model.dart';
 import 'json_saver.dart';
 
-class ActivitiesDatabase extends ActivityDBInterface {
+class ActivitiesDatasource extends ActivityDSInterface {
   JsonSaver saver;
 
-  ActivitiesDatabase(String path)
+  ActivitiesDatasource(String path)
       : saver = JsonSaver('$path/activities');
 
   @override
-  Future<List<ActivityDBModel>> getActivities() async {
+  Future<List<ActivityStorageModel>> getActivities() async {
     List<dynamic> activitiesData = await _getActivities();
-    List<ActivityDBModel> activities = activitiesData.map<ActivityDBModel>((dynamic x) {
+    List<ActivityStorageModel> activities = activitiesData.map<ActivityStorageModel>((dynamic x) {
       final ac = ActivityModel.fromJson(x);
-      var activity = ActivityDBModel(
+      var activity = ActivityStorageModel(
         ac.id,
         ac.name,
         Duration(seconds: ac.plannedSeconds),
@@ -25,7 +25,7 @@ class ActivitiesDatabase extends ActivityDBInterface {
   }
 
   @override
-  addActivity(ActivityDBModel model) async {
+  addActivity(ActivityStorageModel model) async {
     final activities = await _getActivities();
     await _saveActivities([
       ...activities,
@@ -41,14 +41,11 @@ class ActivitiesDatabase extends ActivityDBInterface {
   @override
   deleteActivity(int id) async {
     final activities = await _getActivities();
-    await saver.writeData({
-      'activities':
-          activities.where((activity) => activity['id'] != id).toList() ?? []
-    });
+    await _saveActivities(activities.where((activity) => activity['id'] != id).toList() ?? []);
   }
 
   @override
-  updateActivity(ActivityDBModel model) async {
+  updateActivity(ActivityStorageModel model) async {
     final activities = await _getActivities();
     var newActivity = ActivityModel(
         id: model.id!,
@@ -58,27 +55,30 @@ class ActivitiesDatabase extends ActivityDBInterface {
     newActivities[
             newActivities.indexWhere((element) => element['id'] == model.id)] =
         newActivity.toJson();
-    await saver.writeData({'activities': newActivities});
+    await _saveActivities(newActivities);
   }
 
   clear() async {
-    await saver.writeData({'activities': []});
+    await _saveActivities([]);
   }
 
+  List<dynamic> _activities = [];
+  int _id = 0;
+
   Future<int> _getId() async {
-    List<dynamic> activities = await _getActivities();
-    if (activities.isEmpty) return 1;
-    int maxId = activities
-        .map<int>((activity) => activity['id']) // Map to IDs
-        .reduce((a, b) => a > b ? a : b); // Get the maximum ID
-    return maxId + 1;
+    var data = (await saver.readData());
+    _id = data?['id'] ?? 0;
+    await saver.writeData({'activities': _activities, 'id': _id+1});
+    data = (await saver.readData());
+    return _id++;
   }
 
   Future<List<dynamic>> _getActivities() async {
-    return (await saver.readData())?['activities'] ?? [];
+    _activities = (await saver.readData())?['activities'] ?? [];
+    return _activities;
   }
 
   _saveActivities(activities) async {
-    await saver.writeData({'activities': activities});
+    await saver.writeData({'activities': activities, "id": _id});
   }
 }

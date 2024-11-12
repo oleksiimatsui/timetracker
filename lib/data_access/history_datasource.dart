@@ -2,22 +2,22 @@ import '../business_logic/boundary_crossing_objects/database_model.dart';
 import './models/model.dart';
 import 'json_saver.dart';
 
-class HistoryDatabase extends HistoryDBInterface {
+class HistoryDatasource extends HistoryDSInterface {
   JsonSaver saver;
 
-  HistoryDatabase(String path) : saver = JsonSaver('$path/history');
+  HistoryDatasource(String path) : saver = JsonSaver('$path/history');
 
   @override
-  Future<List<HistoryItemDBModel>> getHistory() async {
-    return (await _getHistory()).map<HistoryItemDBModel>((x) {
+  Future<List<HistoryItemStorageModel>> getHistory() async {
+    return (await _getHistory()).map<HistoryItemStorageModel>((x) {
       final model = PastTDModel.fromJson(x);
-      return HistoryItemDBModel(
+      return HistoryItemStorageModel(
           model.startTime, model.endTime.difference(model.startTime), model.activityId);
     }).toList();
   }
 
   @override
-  addHistory(List<HistoryItemDBModel> hystory) async {
+  addHistory(List<HistoryItemStorageModel> hystory) async {
     final histories = await _getHistory();
     await _saveHistory([
       ...histories,

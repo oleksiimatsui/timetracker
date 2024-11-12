@@ -15,7 +15,7 @@ class StoreProvider{
   static late ThemeStore themeState;
   static late ManagersMediator _m;
 
-  static createStores(StopwatchDBInterface stopwatchesDB, HistoryDBInterface historyDB, ActivityDBInterface activitiesDB){
+  static createStores(StopwatchDSInterface stopwatchesDB, HistoryDSInterface historyDB, ActivityDSInterface activitiesDB){
     _m = ManagersMediator(stopwatchesDB,historyDB,activitiesDB);
     activitiesState = ActivitiesStore(_m.activitiesManager);
     stopwatchesState = StopwatchesStore(_m.stopwatchesManager);

@@ -22,38 +22,41 @@ class ReportWindow extends StatelessWidget {
           for (HistoryItemData item in items) {
             int activityId = item.activityId ?? 0;
             Duration duration = item.duration;
-            totalSums[activityId] = totalSums[activityId] != null ? totalSums[activityId]! + duration :
-                const Duration(seconds: 0) + (duration);
+            totalSums[activityId] = totalSums[activityId] != null
+                ? totalSums[activityId]! + duration
+                : const Duration(seconds: 0) + (duration);
           }
         }
-        final totals = totalSums.values.toList();
+
         return SingleChildScrollView(
             child: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: DataTable(columns: [
-            DataColumn(label: Text("Date")),
+            const DataColumn(label: Text("Date")),
             ...List.generate(
                 length,
                 (index) =>
-                    DataColumn(label: Text(activities[index]?.name ?? '')))
+                    DataColumn(label: Text(activities[index].name ?? '')))
           ], rows: [
             ...history.entries.map<DataRow>((hist) {
               return DataRow(cells: [
                 DataCell(Text(hist.key.day.toString())),
                 ...List.generate(
                     length,
-                    (index) => DataCell(Text(index < hist.value.length
-                        ? (displayDuration(hist.value[index].duration))
-                        : "")))
+                    (index) => DataCell(Text(displayDuration(hist.value
+                            .where((element) =>
+                                element.activityId == activities[index].id)
+                            .firstOrNull
+                            ?.duration ??
+                        Duration()))))
               ]);
             }),
             DataRow(cells: [
-              DataCell(Text("Total")),
+              const DataCell(Text("Total")),
               ...List.generate(
                   length,
-                  (index) => DataCell(Text(index < totals.length
-                      ? (displayDuration(totals[index]))
-                      : "")))
+                  (index) => DataCell(Text((displayDuration(
+                      totalSums[activities[index].id] ?? Duration())))))
             ])
           ]),
         ));

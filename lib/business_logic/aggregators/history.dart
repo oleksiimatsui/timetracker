@@ -7,7 +7,7 @@ import '../boundary_crossing_objects/response_model.dart';
 
 
 class History{
-  HistoryDBInterface db;
+  HistoryDSInterface db;
   History(this.db);
   List<PastTrackingData> _history = [];
   final StreamContainer _historyUpdates = StreamContainer();
@@ -21,7 +21,7 @@ class History{
           activities
               .where((element) => element.id == x.activityId)
               .firstOrNull);
-    }).toList();
+    }).where((x)=>x.activity != null).toList();
     _historyUpdates.emit();
   }
   Map<DateTime, List<HistoryItemData>> getHistory() {

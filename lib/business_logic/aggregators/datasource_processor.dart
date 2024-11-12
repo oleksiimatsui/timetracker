@@ -2,40 +2,40 @@ import '../../helpers/date_helpers.dart';
 import '../boundary_crossing_objects/database_model.dart';
 import '../entities/tracking_data.dart';
 
-class DatabaseProcessor {
-  final StopwatchDBInterface _stopwatchesRepo;
-  final HistoryDBInterface _historyRepo;
+class DatasourceProcessor {
+  final StopwatchDSInterface _stopwatchesRepo;
+  final HistoryDSInterface _historyRepo;
 
-  DatabaseProcessor(this._stopwatchesRepo, this._historyRepo);
+  DatasourceProcessor(this._stopwatchesRepo, this._historyRepo);
 
   process() async {
     var stopwatchesData = await _stopwatchesRepo.getStopwatches();
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-    List<HistoryItemDBModel> historyToAdd = [];
+    List<HistoryItemStorageModel> historyToAdd = [];
     for (final stopwatch in stopwatchesData) {
       if (stopwatch.isRunning) {
         var start = stopwatch.lastChangeTime.subtract(stopwatch.duration);
         var end = getMinDate(nextDayStart(start), now);
         while (end != now) {
           if (end.difference(start).inSeconds != 0) {
-            historyToAdd.add(HistoryItemDBModel(
+            historyToAdd.add(HistoryItemStorageModel(
                 dayStart(start), end.difference(start), stopwatch.id));
           }
           start = end;
           end = getMinDate(nextDayStart(end), now);
         }
         await _stopwatchesRepo.updateStopwatch(
-            StopwatchDBModel(stopwatch.id, end.difference(start), true, now));
+            StopwatchStorageModel(stopwatch.id, end.difference(start), true, now));
       } else {
         final day = DateTime(stopwatch.lastChangeTime.year,
             stopwatch.lastChangeTime.month, stopwatch.lastChangeTime.day);
         if (day != today) {
           if (stopwatch.duration.inSeconds != 0) {
-            historyToAdd.add(HistoryItemDBModel(
+            historyToAdd.add(HistoryItemStorageModel(
                 stopwatch.lastChangeTime, stopwatch.duration, stopwatch.id));
           }
-          await _stopwatchesRepo.updateStopwatch(StopwatchDBModel(
+          await _stopwatchesRepo.updateStopwatch(StopwatchStorageModel(
               stopwatch.id,
               Duration.zero,
               false,

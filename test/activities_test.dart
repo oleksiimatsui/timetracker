@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:timetracker/business_logic/boundary_services/store_provider.dart';
-import 'package:timetracker/data_access/activities_database.dart';
-import 'package:timetracker/data_access/history_database.dart';
-import 'package:timetracker/data_access/stopwatches_database.dart';
+import 'package:timetracker/data_access/activities_datasource.dart';
+import 'package:timetracker/data_access/history_datasource.dart';
+import 'package:timetracker/data_access/stopwatches_datasource.dart';
 
 import 'test_configs.dart';
 
@@ -11,9 +11,9 @@ void main() async {
 
   setUpAll(() async {
     String path = TESTING_DIR;
-    var activitiesDB = ActivitiesDatabase(path);
-    var stopwatchesDB = StopwatchesDatabase(path);
-    var historyDB = HistoryDatabase(path);
+    var activitiesDB = ActivitiesDatasource(path);
+    var stopwatchesDB = StopwatchesDatasource(path);
+    var historyDB = HistoryDatasource(path);
     activitiesDB.clear();
     stopwatchesDB.clear();
     historyDB.clear();

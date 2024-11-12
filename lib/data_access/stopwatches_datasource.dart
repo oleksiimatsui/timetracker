@@ -3,18 +3,18 @@ import '../business_logic/boundary_crossing_objects/database_model.dart';
 import './models/model.dart';
 import 'json_saver.dart';
 
-class StopwatchesDatabase extends StopwatchDBInterface {
+class StopwatchesDatasource extends StopwatchDSInterface {
   JsonSaver saver;
 
-  StopwatchesDatabase(String path)
+  StopwatchesDatasource(String path)
       : saver = JsonSaver('$path/stopwatches');
 
   @override
-  Future<List<StopwatchDBModel>> getStopwatches() async {
+  Future<List<StopwatchStorageModel>> getStopwatches() async {
     List<dynamic> stopwatchesData = await _getStopwatches();
-    List<StopwatchDBModel> res = stopwatchesData.map<StopwatchDBModel>((dynamic x) {
+    List<StopwatchStorageModel> res = stopwatchesData.map<StopwatchStorageModel>((dynamic x) {
         final stopwatch = ActiveTDModel.fromJson(x);
-        return StopwatchDBModel(
+        return StopwatchStorageModel(
           stopwatch.id,
             stopwatch.duration,
             stopwatch.isRunning,
@@ -24,7 +24,7 @@ class StopwatchesDatabase extends StopwatchDBInterface {
   }
 
   @override
-  updateStopwatch(StopwatchDBModel model) async {
+  updateStopwatch(StopwatchStorageModel model) async {
     List<dynamic> stopwatches = await _getStopwatches();
     var newWatch = ActiveTDModel(
         id: model.id!,
