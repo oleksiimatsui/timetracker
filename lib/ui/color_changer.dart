@@ -15,7 +15,7 @@ class ColorChanger extends StatelessWidget{
       },
       color: Theme.of(context).colorScheme.primary,
       onColorChanged: (Color newColor) {
-        StoreProvider.themeState.setTheme(newColor);
+        StoresHub.themeStore.setTheme(newColor);
       },
       width: 40,
       height: 40,

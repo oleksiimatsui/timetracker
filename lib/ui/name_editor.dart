@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+
+/// text editing widget
+///
+/// builds a text input with [text] default value and "Save" button,
+/// which calls [onChanged] callback with the entered text
 class TextEditor extends StatefulWidget {
   TextEditor(this.text, this.onChanged, {super.key});
 

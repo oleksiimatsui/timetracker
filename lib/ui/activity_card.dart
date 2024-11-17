@@ -5,9 +5,16 @@ import '../business_logic/boundary_services/store_provider.dart';
 import '../helpers/display_duration.dart';
 import '../business_logic/boundary_crossing_objects/response_model.dart';
 
+
+/// Activity card widget
+///
+/// provides buttons for editing and deleting the activity,
+/// stopping and resuming the stopwatch,
+/// shows the stopwatch's elapsed time
 class ActivityWatch extends StatefulWidget {
   ActivityWatch(this.activity);
 
+  /// Activity of the card
   ActivityData activity;
 
   @override
@@ -16,8 +23,8 @@ class ActivityWatch extends StatefulWidget {
 
 class _ActivityWatchState extends State<ActivityWatch> {
   bool editName = false;
-  final trackingStore = StoreProvider.stopwatchesState;
-  final activitiesStore = StoreProvider.activitiesState;
+  final trackingStore = StoresHub.stopwatchesStore;
+  final activitiesStore = StoresHub.activitiesStore;
 
   toggleStopWatch() {
     if (trackingStore.activityIsRunning(widget.activity.id)) {
@@ -67,7 +74,7 @@ class _ActivityWatchState extends State<ActivityWatch> {
                         style: Theme.of(context).textTheme.titleLarge,
                       ))
                   : TextEditor(widget.activity.name, (value) {
-                      StoreProvider.activitiesState
+                      StoresHub.activitiesStore
                           .editName(widget.activity.id, value);
                       setState(() {
                         editName = false;

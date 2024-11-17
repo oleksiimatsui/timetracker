@@ -4,18 +4,18 @@ import 'package:timetracker/ui/color_changer.dart';
 import '../business_logic/boundary_services/store_provider.dart';
 
 
+/// user interface that uses the [StoresHub]
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: StoreProvider.themeState.stream,
+        stream: StoresHub.themeStore.stream,
         builder: (_, __) {
           return MaterialApp(
             title: 'Timetracker',
             debugShowCheckedModeBanner: false,
-            theme: StoreProvider.themeState.getTheme,
+            theme: StoresHub.themeStore.getTheme,
             home: const MyHomePage(),
           );
         });

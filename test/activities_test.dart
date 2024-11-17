@@ -17,32 +17,32 @@ void main() async {
     activitiesDB.clear();
     stopwatchesDB.clear();
     historyDB.clear();
-    StoreProvider.createStores(stopwatchesDB, historyDB, activitiesDB);
-    StoreProvider.load();
+    StoresHub.createStores(stopwatchesDB, historyDB, activitiesDB);
+    StoresHub.load();
   });
 
   test('add activity', () async {
-   await StoreProvider.activitiesState.addActivity("My activity");
-   assert(StoreProvider.activitiesState.activities.firstOrNull!.name == "My activity");
+   await StoresHub.activitiesStore.addActivity("My activity");
+   assert(StoresHub.activitiesStore.activities.firstOrNull!.name == "My activity");
   });
   test('delete activity', () async {
-    await StoreProvider.activitiesState.deleteActivity(1);
-    assert(StoreProvider.activitiesState.activities.isEmpty);
+    await StoresHub.activitiesStore.deleteActivity(1);
+    assert(StoresHub.activitiesStore.activities.isEmpty);
   });
   test('start and stop activity', () async {
     // add activity
-    await StoreProvider.activitiesState.addActivity("name");
+    await StoresHub.activitiesStore.addActivity("name");
     await pumpEventQueue();
     //run activity for 1 second
-    await StoreProvider.stopwatchesState.startActivity(1);
+    await StoresHub.stopwatchesStore.startActivity(1);
     await Future.delayed(const Duration(seconds: 1));
-    var elapsedTime = StoreProvider.stopwatchesState.runningActivityDuration;
+    var elapsedTime = StoresHub.stopwatchesStore.runningActivityDuration;
     assert(elapsedTime!.inSeconds == 1);
     //stop activity
-    int runningActivityId = StoreProvider.stopwatchesState.currentId!;
-    await StoreProvider.stopwatchesState.stopActivity();
+    int runningActivityId = StoresHub.stopwatchesStore.currentId!;
+    await StoresHub.stopwatchesStore.stopActivity();
     await Future.delayed(const Duration(seconds: 1));
-    var elapsedTime2 = StoreProvider.activitiesState.getActivitySavedDuration(runningActivityId);
+    var elapsedTime2 = StoresHub.activitiesStore.getActivitySavedDuration(runningActivityId);
     //activity time haven't changed after it was stopped
     assert(elapsedTime2!.inSeconds == 1);
   });

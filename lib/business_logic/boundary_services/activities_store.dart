@@ -1,11 +1,11 @@
-
-import '../../helpers/store.dart';
+import '../../helpers/stream_container.dart';
 import '../aggregators/activities.dart';
 import '../boundary_crossing_objects/response_model.dart';
 
+
+/// Service for getting and mutating the activities
 class ActivitiesStore{
-  final Activities _manager;
-  List<ActivityData> activities = [];
+
   ActivitiesStore(this._manager){
     _manager.activitiesStream.listen((event) {
       activities = _manager.getActivities()
@@ -14,8 +14,18 @@ class ActivitiesStore{
       _activitiesUpdates.emit();
     });
   }
+
+  /// internal activities state that contains the list of all activities currently stored
+  final Activities _manager;
+
+  /// activities data for external usage
+  List<ActivityData> activities = [];
+
+  /// stream of activities' updates
   final StreamContainer _activitiesUpdates = StreamContainer();
   Stream get activitiesStream => _activitiesUpdates.stream;
+
+
   addActivity(String name) async {
     await _manager.addActivity(name);
   }

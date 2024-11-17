@@ -8,11 +8,11 @@ import 'test_configs.dart';
 
 void main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late DatasourceProcessor solver;
+  late StopwatchToHistoryProcessor solver;
   String path = TESTING_DIR;
   var stopwatchRepo = StopwatchesDatasource(path);
   var historyRepo = HistoryDatasource(path);
-  solver = DatasourceProcessor(stopwatchRepo, historyRepo);
+  solver = StopwatchToHistoryProcessor(stopwatchRepo, historyRepo);
 
   test("next day start", () {
     final date1 = DateTime(

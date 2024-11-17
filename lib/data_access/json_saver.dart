@@ -2,6 +2,8 @@ import 'dart:convert'; // for jsonEncode, jsonDecode
 import 'dart:io'; // for File operations
 import 'package:path_provider/path_provider.dart';
 
+
+/// helper class for storing json objects in a file
 class JsonSaver {
 
   JsonSaver(path){

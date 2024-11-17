@@ -6,15 +6,18 @@ import 'data_access/activities_datasource.dart';
 import 'data_access/history_datasource.dart';
 import 'data_access/stopwatches_datasource.dart';
 
+
+///returns path to the storage directory for the data sources
 _getPath() async {
   final directory = await getApplicationDocumentsDirectory();
   String p = directory.path;
   return p;
 }
 
+/// assembles the dependencies and runs the app
 void main() async {
   final path = await _getPath();
-  StoreProvider.createStores(StopwatchesDatasource(path), HistoryDatasource(path), ActivitiesDatasource(path));
-  StoreProvider.load();
+  StoresHub.createStores(StopwatchesDatasource(path), HistoryDatasource(path), ActivitiesDatasource(path));
+  StoresHub.load();
   runApp(const MyApp());
 }

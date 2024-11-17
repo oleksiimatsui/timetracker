@@ -9,11 +9,11 @@ class ReportWindow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: StoreProvider.activitiesState.activitiesStream,
+      stream: StoresHub.activitiesStore.activitiesStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         Map<DateTime, List<HistoryItemData>> history =
-            StoreProvider.historyState.history;
-        final activities = StoreProvider.activitiesState.activities;
+            StoresHub.historyStore.history;
+        final activities = StoresHub.activitiesStore.activities;
         final length = activities.length;
         Map<int, Duration> totalSums = <int, Duration>{};
 

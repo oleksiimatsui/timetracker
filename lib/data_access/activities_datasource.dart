@@ -3,6 +3,7 @@ import '../business_logic/boundary_crossing_objects/database_model.dart';
 import './models/model.dart';
 import 'json_saver.dart';
 
+/// stores the activities in a file as a json object
 class ActivitiesDatasource extends ActivityDSInterface {
   JsonSaver saver;
 

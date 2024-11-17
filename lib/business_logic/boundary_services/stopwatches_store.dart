@@ -1,9 +1,9 @@
 import 'dart:async';
-import '../../helpers/store.dart';
+import '../../helpers/stream_container.dart';
 import '../aggregators/stopwatches.dart';
 import '../boundary_crossing_objects/response_model.dart';
 
-
+/// Service for getting and mutating the activities' stopwatches
 class StopwatchesStore {
   final Stopwatches _manager;
 

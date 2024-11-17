@@ -3,9 +3,13 @@ import 'package:timetracker/ui/add_activity.dart';
 import 'package:timetracker/ui/activity_card.dart';
 import '../business_logic/boundary_services/store_provider.dart';
 
+
+/// Displays activities in a scrollable column
 class TimetrackingWindow extends StatelessWidget {
+  TimetrackingWindow({super.key});
+
   addActivity() {}
-  final store = StoreProvider.activitiesState;
+  final store = StoresHub.activitiesStore;
 
   @override
   Widget build(BuildContext context) {

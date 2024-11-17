@@ -2,6 +2,8 @@ import '../business_logic/boundary_crossing_objects/database_model.dart';
 import './models/model.dart';
 import 'json_saver.dart';
 
+
+/// stores the history in a file as a json object
 class HistoryDatasource extends HistoryDSInterface {
   JsonSaver saver;
 

@@ -1,6 +1,5 @@
-import '../../helpers/store.dart';
+import '../../helpers/stream_container.dart';
 import '../boundary_crossing_objects/database_model.dart';
-import '../boundary_crossing_objects/response_model.dart';
 import '../entities/activity.dart';
 import '../entities/tracking_data.dart';
 
@@ -12,7 +11,6 @@ class Activities {
 
   List<Activity> _activities = [];
   final StreamContainer _activitiesUpdates = StreamContainer(sync: true);
-
   Stream get activitiesStream => _activitiesUpdates.stream;
 
   List<Activity> getActivities() => _activities;

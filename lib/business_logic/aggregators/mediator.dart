@@ -8,13 +8,13 @@ class ManagersMediator{
   late Stopwatches stopwatchesManager;
   late Activities activitiesManager;
   late History historyManager;
-  late DatasourceProcessor _dbProcessor;
+  late StopwatchToHistoryProcessor _dbProcessor;
 
   ManagersMediator(StopwatchDSInterface stopwatchesDB, HistoryDSInterface historyDB, ActivityDSInterface activitiesDB){
     stopwatchesManager = Stopwatches(stopwatchesDB);
     activitiesManager = Activities(activitiesDB, stopwatchesDB);
     historyManager = History(historyDB);
-    _dbProcessor = DatasourceProcessor(stopwatchesDB, historyDB);
+    _dbProcessor = StopwatchToHistoryProcessor(stopwatchesDB, historyDB);
 
     activitiesManager.activitiesStream.listen((event) {
       stopwatchesManager.updateActivities(activitiesManager.getActivities());

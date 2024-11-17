@@ -3,6 +3,8 @@ import '../business_logic/boundary_crossing_objects/database_model.dart';
 import './models/model.dart';
 import 'json_saver.dart';
 
+
+/// stores the stopwatches in a file as a json object
 class StopwatchesDatasource extends StopwatchDSInterface {
   JsonSaver saver;
 

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:timetracker/ui/report_window.dart';
 import 'package:timetracker/ui/timetracking_window.dart';
 
+/// builds interface with timetracking and history windows and left sidebar
 class AppBody extends StatefulWidget {
-  AppBody({super.key});
+  const AppBody({super.key});
 
   @override
   State<StatefulWidget> createState() => _AppBodyState();

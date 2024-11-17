@@ -1,6 +1,6 @@
 import 'package:timetracker/business_logic/boundary_crossing_objects/database_model.dart';
 import '../../helpers/date_helpers.dart';
-import '../../helpers/store.dart';
+import '../../helpers/stream_container.dart';
 import '../entities/activity.dart';
 import '../entities/tracking_data.dart';
 import '../boundary_crossing_objects/response_model.dart';
@@ -27,11 +27,11 @@ class History{
   Map<DateTime, List<HistoryItemData>> getHistory() {
     Map<DateTime, List<HistoryItemData>> res = <DateTime, List<HistoryItemData>>{};
     for(final hist in _history){
-      final histDay = dayStart(hist.startTime);
+      final histDay = dayStart(hist.date);
       if(res[histDay] == null){
         res[histDay] = [];
       }
-      res[histDay]!.add(HistoryItemData(hist.activity?.id, hist.duration, hist.startTime));
+      res[histDay]!.add(HistoryItemData(hist.activity?.id, hist.duration, hist.date));
     }
     return res;
   }

@@ -1,4 +1,4 @@
-
+/// activity data for usage in UI
 class ActivityData{
   ActivityData(this.id, this.name, this.plannedDuration);
   String name;
@@ -6,6 +6,7 @@ class ActivityData{
   int id;
 }
 
+/// history item data for usage in UI
 class HistoryItemData{
   int? activityId;
   Duration duration;

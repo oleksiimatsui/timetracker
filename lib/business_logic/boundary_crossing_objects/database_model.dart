@@ -2,6 +2,8 @@
 import '../entities/activity.dart';
 import '../entities/tracking_data.dart';
 
+/// Interface for data source operations related to activities.
+///
 abstract class ActivityDSInterface {
   Future<List<ActivityStorageModel>> getActivities();
   Future addActivity(ActivityStorageModel model);
@@ -9,11 +11,15 @@ abstract class ActivityDSInterface {
   Future updateActivity(ActivityStorageModel model);
 }
 
+/// Interface for data source operations related to history.
+///
 abstract class HistoryDSInterface {
   Future<List<HistoryItemStorageModel>> getHistory();
   Future addHistory(List<HistoryItemStorageModel> model);
 }
 
+/// Interface for data source operations related to stopwatches.
+///
 abstract class StopwatchDSInterface {
   Future<List<StopwatchStorageModel>> getStopwatches();
   Future updateStopwatch(StopwatchStorageModel model);

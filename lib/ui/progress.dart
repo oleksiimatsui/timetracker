@@ -2,10 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+/// displays a progress bar
+///
+/// the progress bar coefficient is calculated as [_current]/[_max]
 class Progress extends StatelessWidget {
-  Progress(this._current, this._max, {super.key}) {}
-  int _current;
-  int _max;
+  const Progress(this._current, this._max, {super.key});
+  final int _current;
+  final int _max;
 
   @override
   Widget build(BuildContext context) {

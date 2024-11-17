@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../business_logic/boundary_services/store_provider.dart';
 
-
+/// The new activity button that opens new activity creator
+///
+/// depending on dialogOpen variable, it shows a "Add activity" text button
+/// or a card with a text field for entering the activity name
+/// and two buttons: "submit" and "cancel"
 class NewActivityWidget extends StatefulWidget {
   const NewActivityWidget({super.key});
 
@@ -22,7 +26,7 @@ class _NewActivityState extends State<NewActivityWidget> {
       loading = true;
     });
     try {
-      await StoreProvider.activitiesState.addActivity(name!);
+      await StoresHub.activitiesStore.addActivity(name!);
     } finally {
       setState(() {
         dialogOpen = false;

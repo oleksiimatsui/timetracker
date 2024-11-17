@@ -1,9 +1,10 @@
 
-
 import 'package:flutter/material.dart';
 
-import '../../helpers/store.dart';
+import '../../helpers/stream_container.dart';
 
+
+/// Service for getting and mutating the app theme
 class ThemeStore{
   final StreamContainer _stream = StreamContainer();
   Stream get stream => _stream.stream;

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:timetracker/business_logic/boundary_crossing_objects/database_model.dart';
-import '../../helpers/store.dart';
+import '../../helpers/stream_container.dart';
 import '../entities/activity.dart';
 
 

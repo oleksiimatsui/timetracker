@@ -2,11 +2,19 @@ import '../../helpers/date_helpers.dart';
 import '../boundary_crossing_objects/database_model.dart';
 import '../entities/tracking_data.dart';
 
-class DatasourceProcessor {
+
+/// A processor that converts the data from active stopwatches into history items
+///
+/// processes all the stopwatches in the [_stopwatchesRepo] datasource
+/// based on their state, it modifies them and creates records in [_historyRepo]
+/// - For running stopwatches, it splits the duration across multiple days if necessary,
+/// adds history records and updates stopwatch duration.
+/// - For completed stopwatches, it adds a single history item and clears the stopwatch duration.
+class StopwatchToHistoryProcessor {
   final StopwatchDSInterface _stopwatchesRepo;
   final HistoryDSInterface _historyRepo;
 
-  DatasourceProcessor(this._stopwatchesRepo, this._historyRepo);
+  StopwatchToHistoryProcessor(this._stopwatchesRepo, this._historyRepo);
 
   process() async {
     var stopwatchesData = await _stopwatchesRepo.getStopwatches();

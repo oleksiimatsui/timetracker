@@ -1,27 +1,36 @@
 
 import 'activity.dart';
 
+/// activity's data with duration
 abstract class TrackingData {
   TrackingData(this.activity);
   Activity? activity;
   Duration get duration;
 }
 
+
+/// stopwatch entity
 class ActiveTrackingData extends TrackingData {
   ActiveTrackingData(
       this.isRunning, this.lastChangeTime, super.activity, this._duration);
 
   final Duration _duration;
+  /// whether the stopwatch is running or paused
   bool isRunning;
+  /// time of last start/stop operation execution
   DateTime lastChangeTime;
+
+
   final Stopwatch _stopwatch = Stopwatch();
 
+  /// starts the stopwatch
   start() {
     _stopwatch.start();
     isRunning = true;
     lastChangeTime = DateTime.now();
   }
 
+  /// stops the stopwatch
   stop() {
     _stopwatch.stop();
     isRunning = false;
@@ -34,15 +43,16 @@ class ActiveTrackingData extends TrackingData {
   }
 }
 
+/// contains the duration of time binded to a date
 class PastTrackingData extends TrackingData {
-  PastTrackingData(this._startTime, this._duration, activity) : super(activity);
+  PastTrackingData(this._date, this._duration, activity) : super(activity);
   final Duration _duration;
-  final DateTime _startTime;
+  final DateTime _date;
   @override
   Duration get duration{
     return _duration;
   }
-  DateTime get startTime{
-    return _startTime;
+  DateTime get date{
+    return _date;
   }
 }

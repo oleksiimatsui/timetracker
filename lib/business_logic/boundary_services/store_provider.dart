@@ -8,24 +8,28 @@ import 'activities_store.dart';
 import 'app_theme.dart';
 import 'history_store.dart';
 
-class StoreProvider{
-  static late ActivitiesStore activitiesState;
-  static late StopwatchesStore stopwatchesState;
-  static late HistoryStore historyState;
-  static late ThemeStore themeState;
+
+/// Manages stores' static instances and provides access to them
+class StoresHub{
+  static late ActivitiesStore activitiesStore;
+  static late StopwatchesStore stopwatchesStore;
+  static late HistoryStore historyStore;
+  static late ThemeStore themeStore;
   static late ManagersMediator _m;
 
+  /// initializes the stores and the stores' mediator
   static createStores(StopwatchDSInterface stopwatchesDB, HistoryDSInterface historyDB, ActivityDSInterface activitiesDB){
     _m = ManagersMediator(stopwatchesDB,historyDB,activitiesDB);
-    activitiesState = ActivitiesStore(_m.activitiesManager);
-    stopwatchesState = StopwatchesStore(_m.stopwatchesManager);
-    historyState = HistoryStore(_m.historyManager);
-    themeState = ThemeStore();
-    activitiesState.activitiesStream.listen((event) {
-      stopwatchesState.load(activitiesState.activities);
+    activitiesStore = ActivitiesStore(_m.activitiesManager);
+    stopwatchesStore = StopwatchesStore(_m.stopwatchesManager);
+    historyStore = HistoryStore(_m.historyManager);
+    themeStore = ThemeStore();
+    activitiesStore.activitiesStream.listen((event) {
+      stopwatchesStore.load(activitiesStore.activities);
     });
   }
 
+  /// fetches all the activities, stopwatches and history initial info.
   static load() async{
     await _m.load();
   }
