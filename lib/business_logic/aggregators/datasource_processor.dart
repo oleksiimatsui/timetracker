@@ -1,6 +1,5 @@
 import '../../helpers/date_helpers.dart';
-import '../boundary_crossing_objects/database_model.dart';
-import '../entities/tracking_data.dart';
+import '../boundary_crossing_objects/datasource_model.dart';
 
 
 /// A processor that converts the data from active stopwatches into history items

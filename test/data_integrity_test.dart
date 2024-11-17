@@ -3,7 +3,7 @@ import 'package:timetracker/business_logic/aggregators/datasource_processor.dart
 import 'package:timetracker/data_access/history_datasource.dart';
 import 'package:timetracker/data_access/stopwatches_datasource.dart';
 import 'package:timetracker/helpers/date_helpers.dart';
-import 'package:timetracker/business_logic/boundary_crossing_objects/database_model.dart';
+import 'package:timetracker/business_logic/boundary_crossing_objects/datasource_model.dart';
 import 'test_configs.dart';
 
 void main() async {

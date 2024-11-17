@@ -1,5 +1,5 @@
 import '../../helpers/stream_container.dart';
-import '../boundary_crossing_objects/database_model.dart';
+import '../boundary_crossing_objects/datasource_model.dart';
 import '../entities/activity.dart';
 import '../entities/tracking_data.dart';
 

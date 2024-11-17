@@ -1,5 +1,8 @@
 import 'package:timetracker/business_logic/entities/tracking_data.dart';
 
+import '../../values/dimensions.dart';
+
+
 
 /// stopwatch data that is used only in the [Activity] constructor
 class StopwatchData{
@@ -15,7 +18,7 @@ class StopwatchData{
 ///
 class Activity{
   Activity(this.id, this.name, Duration? plannedDuration, StopwatchData? stopwatch):
-        plannedDuration = plannedDuration ?? const Duration(hours: 4){
+        plannedDuration = plannedDuration ?? const Duration(hours: DEFAULT_PLANNED_HOURS){
     if(stopwatch != null){
       activeTrackingData = ActiveTrackingData(stopwatch.isRunning, stopwatch.lastChangeTime!, this, stopwatch.duration);
     }

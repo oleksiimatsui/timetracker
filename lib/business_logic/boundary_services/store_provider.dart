@@ -1,9 +1,6 @@
 import 'package:timetracker/business_logic/boundary_services/stopwatches_store.dart';
-import '../aggregators/activities.dart';
-import '../aggregators/history.dart';
 import '../aggregators/mediator.dart';
-import '../aggregators/stopwatches.dart';
-import '../boundary_crossing_objects/database_model.dart';
+import '../boundary_crossing_objects/datasource_model.dart';
 import 'activities_store.dart';
 import 'app_theme.dart';
 import 'history_store.dart';

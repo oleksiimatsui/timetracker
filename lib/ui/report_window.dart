@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:timetracker/helpers/display_duration.dart';
 import '../business_logic/boundary_crossing_objects/response_model.dart';
@@ -22,6 +24,7 @@ class ReportWindow extends StatelessWidget {
           for (HistoryItemData item in items) {
             int activityId = item.activityId ?? 0;
             Duration duration = item.duration;
+            log(duration.inHours.toString());
             totalSums[activityId] = totalSums[activityId] != null
                 ? totalSums[activityId]! + duration
                 : const Duration(seconds: 0) + (duration);

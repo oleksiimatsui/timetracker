@@ -1,4 +1,4 @@
-import '../business_logic/boundary_crossing_objects/database_model.dart';
+import '../business_logic/boundary_crossing_objects/datasource_model.dart';
 import './models/model.dart';
 import 'json_saver.dart';
 
