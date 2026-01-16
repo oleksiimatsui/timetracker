@@ -11,11 +11,12 @@ class HistoryDatasource extends HistoryDSInterface {
 
   @override
   Future<List<HistoryItemStorageModel>> getHistory() async {
-    return (await _getHistory()).map<HistoryItemStorageModel>((x) {
+    final res =  (await _getHistory()).map<HistoryItemStorageModel>((x) {
       final model = PastTDModel.fromJson(x);
       return HistoryItemStorageModel(
           model.startTime, model.endTime.difference(model.startTime), model.activityId);
     }).toList();
+    return res.toSet().toList();
   }
 
   @override

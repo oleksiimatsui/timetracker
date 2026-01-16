@@ -24,6 +24,10 @@ class StreamContainer{
   void emit() {
     _controller.add(null);
   }
+
+  void dispose(){
+    _controller.close();
+  }
 }
 
 /// a map of [StreamContainer] with integer keys
@@ -55,6 +59,12 @@ class StreamMap{
   void init(List<int> keys){
     for(int key in keys){
       _map[key] = StreamContainer();
+    }
+  }
+
+  void dispose() {
+    for(int key in _map.keys){
+      _map[key]?.dispose();
     }
   }
 }

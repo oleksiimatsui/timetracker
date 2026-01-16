@@ -28,4 +28,8 @@ class ThemeStore{
     _stream.emit();
   }
   get getTheme => _themeData;
+
+  dispose(){
+    _stream.dispose();
+  }
 }

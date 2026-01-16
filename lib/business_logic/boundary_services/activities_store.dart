@@ -24,7 +24,9 @@ class ActivitiesStore{
   /// stream of activities' updates
   final StreamContainer _activitiesUpdates = StreamContainer();
   Stream get activitiesStream => _activitiesUpdates.stream;
-
+  dispose(){
+    _activitiesUpdates.dispose();
+  }
 
   addActivity(String name) async {
     await _manager.addActivity(name);

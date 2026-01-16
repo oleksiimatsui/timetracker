@@ -1,4 +1,3 @@
-
 import '../entities/activity.dart';
 import '../entities/tracking_data.dart';
 
@@ -6,8 +5,11 @@ import '../entities/tracking_data.dart';
 ///
 abstract class ActivityDSInterface {
   Future<List<ActivityStorageModel>> getActivities();
+
   Future addActivity(ActivityStorageModel model);
+
   Future deleteActivity(int id);
+
   Future updateActivity(ActivityStorageModel model);
 }
 
@@ -15,6 +17,7 @@ abstract class ActivityDSInterface {
 ///
 abstract class HistoryDSInterface {
   Future<List<HistoryItemStorageModel>> getHistory();
+
   Future addHistory(List<HistoryItemStorageModel> model);
 }
 
@@ -22,9 +25,9 @@ abstract class HistoryDSInterface {
 ///
 abstract class StopwatchDSInterface {
   Future<List<StopwatchStorageModel>> getStopwatches();
+
   Future updateStopwatch(StopwatchStorageModel model);
 }
-
 
 class ActivityStorageModel {
   ActivityStorageModel(this.id, this.name, this.plannedDuration);
@@ -52,17 +55,24 @@ class StopwatchStorageModel {
   bool isRunning;
   DateTime lastChangeTime;
 
-  factory StopwatchStorageModel.fromEntity(
-      ActiveTrackingData entity) {
-    return StopwatchStorageModel(
-        entity.activity!.id!,
-        entity.duration, entity.isRunning, entity.lastChangeTime);
+  factory StopwatchStorageModel.fromEntity(ActiveTrackingData entity) {
+    return StopwatchStorageModel(entity.activity!.id!, entity.duration,
+        entity.isRunning, entity.lastChangeTime);
   }
 }
 
 class HistoryItemStorageModel {
   HistoryItemStorageModel(this.date, this.duration, this.activityId);
+
   DateTime date;
   Duration duration;
   int activityId;
+
+  bool operator ==(Object other) =>
+      other is HistoryItemStorageModel &&
+      date == other.date &&
+      duration == other.duration &&
+      activityId == other.activityId;
+
+  int get hashCode => Object.hash(date, duration, activityId); // <----- here
 }

@@ -22,6 +22,7 @@ class History{
               .where((element) => element.id == x.activityId)
               .firstOrNull);
     }).where((x)=>x.activity != null).toList();
+
     _historyUpdates.emit();
   }
   Map<DateTime, List<HistoryItemData>> getHistory() {

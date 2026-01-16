@@ -20,6 +20,9 @@ class StopwatchesStore {
   }
 
   final StreamMap _stopwatchUpdates = StreamMap();
+  dispose(){
+    _stopwatchUpdates.dispose();
+  }
 
   Stream getStopwatchStream(int id) {
     return _stopwatchUpdates.get(id);

@@ -30,4 +30,11 @@ class StoresHub{
   static load() async{
     await _m.load();
   }
+
+  static dispose(){
+    activitiesStore.dispose();
+    stopwatchesStore.dispose();
+    historyStore.dispose();
+    themeStore.dispose();
+  }
 }

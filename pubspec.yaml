@@ -44,6 +44,9 @@ dependencies:
   mockito: ^5.4.4
   flex_color_picker: ^3.4.1
   flutter_launcher_icons: ^0.14.1
+  month_picker_dialog: ^6.7.0
+  intl: ^0.20.2
+  multi_stream_builder: ^0.0.1
 
 dev_dependencies:
   flutter_test:

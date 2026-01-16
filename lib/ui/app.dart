@@ -3,10 +3,23 @@ import 'package:timetracker/ui/app_body.dart';
 import 'package:timetracker/ui/color_changer.dart';
 import '../business_logic/boundary_services/store_provider.dart';
 
-
 /// user interface that uses the [StoresHub]
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _MyAppState();
+  }
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  dispose() {
+    StoresHub.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
